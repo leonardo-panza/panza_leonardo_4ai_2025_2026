@@ -23,7 +23,7 @@ public class Main {
         System.out.print("\nInserisci un numero: ");
         String numero = br.readLine();
 
-        verificanum1(numero);
+        verificanum3(numero);
 
     }
 
@@ -46,8 +46,8 @@ public class Main {
             //  istruzioni
             //}
 
-            for (int i = -50; i >= n; i = i - 2){
-                System.out.println(i + "X");
+            for (int i = 0; i >= n; i = i - 1){
+                System.out.println(i + " volta");
             }
 
             if (n==0){
@@ -64,6 +64,69 @@ public class Main {
             System.out.println("\nHai inserito questo btw: " + n);
         } catch (Exception e){
             System.out.print("NOOOOOOO ANGELOOOO");
+        }
+    }
+
+    public static void verificanum2(String numero){
+        try {
+            int n = Integer.parseInt(numero);
+
+            //while(condizione di esecuzione){
+            //istruzioni e incremento (se non lo voglio infinito)
+            //}
+            int conta = 0;
+            while(conta < n){
+                System.out.print("x");
+                conta = conta + 3;
+            }
+
+
+            if (n==0){
+                System.out.println("We furbetto pensi di fregarmi? Il quadrato di 0 è 0 😭🙏");
+                System.out.println("Brochacho tought he could fool me");
+                System.out.println("'some attention please' ahh input 😭😭😭");
+            }else{
+                if (n<0){
+                    System.out.println("niente numeri negativi");
+                }else {
+                    System.out.println("\nIl quadrato di " + n + " è: " + (n * n));
+                }
+            }
+            System.out.println("\nHai inserito questo btw: " + n);
+        } catch (Exception e){
+            System.out.print("NOOOOOOO ANGELOOOO");
+        }
+    }
+
+    public static void verificanum3(String numero){
+        try {
+            int n = Integer.parseInt(numero);
+
+            //do{
+            //istruzioni
+            //}while(condizione di terminazione);
+
+            int conta = 0;
+
+            do{
+                System.out.print("x");
+                conta = conta + 3;
+            }while(conta<n);
+
+            if (n==0){
+                System.out.println("\nWe furbetto pensi di fregarmi? Il quadrato di 0 è 0 😭🙏");
+                System.out.println("Brochacho tought he could fool me");
+                System.out.println("'some attention please' ahh input 😭😭😭");
+            }else{
+                if (n<0){
+                    System.out.println("\nniente numeri negativi");
+                }else {
+                    System.out.println("\nIl quadrato di " + n + " è: " + (n * n));
+                }
+            }
+            System.out.println("\nHai inserito questo btw: " + n);
+        } catch (Exception e){
+            System.out.print("\nNOOOOOOO ANGELOOOO");
         }
     }
 
