@@ -1,0 +1,37 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+void main() throws IOException{
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    int max_oggetti = 0;
+
+    int errore = 1;
+    while (errore == 1) {
+        errore = 0;
+        IO.print("Quanti oggetti metti nello zaino? --> ");
+        String input_max_oggetti = br.readLine();
+        try {
+            max_oggetti = Integer.parseInt(input_max_oggetti);
+        } catch (Exception e) {
+            errore = 1;
+            IO.println("Non hai inserito un numero valido!!!");
+        }
+    }
+
+    String[] oggetti = new String[max_oggetti];
+    int quanti = 0;
+
+    for(int i = 0; i<max_oggetti; i++) {
+        IO.print((quanti+1) + "° oggetto da mettere nello zaino per la scuola: ");
+        String oggetto = br.readLine();
+        oggetti[quanti] = oggetto;
+        quanti++;
+    }
+
+    IO.println("------ RIEPILOGO ------");
+    for(int i = 0; i<quanti; i++){
+        IO.println("Il " + (i+1) + "° oggettto da portare nello zaino è: " + oggetti[i]);
+    }
+
+}
