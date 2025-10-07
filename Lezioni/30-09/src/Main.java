@@ -107,7 +107,7 @@ public static String menu(){
     boolean err = true;
     while(err){
         err = false;
-        String scelta = IO.readln();
+        scelta = IO.readln();
         switch(scelta){
             case "X", "1", "2", "3": break;
             default: err = true; IO.println("Scelta non accettabile");
