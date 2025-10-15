@@ -3,10 +3,15 @@
 
 void main() {
 
+    boolean gayming = true;
     Griglia a = new Griglia();
 
-    a.mostraGriglia();
-    a.aggiungiX(7);
-    a.mostraGriglia();
-
+    while(gayming) {
+        a.mostraGriglia();
+        IO.print("Input: ");
+        String b = IO.readln();
+        int num = Integer.parseInt(b);
+        a.aggiungiX(num);
+        a.mostraGriglia();
+    }
 }

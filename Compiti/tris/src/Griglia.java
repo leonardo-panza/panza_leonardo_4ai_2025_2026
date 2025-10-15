@@ -11,7 +11,7 @@ public class Griglia {
 
         //dichiaro tutti gli spazi vuoti
         for(int i = 0; i<LATO_GRIGLIA; i++){
-            for(int j = 0; i<LATO_GRIGLIA; i++){
+            for(int j = 0; j<LATO_GRIGLIA; j++){
                 griglia[i][j] = ' ';
             }
         }
@@ -51,11 +51,13 @@ public class Griglia {
 
     public void mostraGriglia(){
         for(int i = 0; i<LATO_GRIGLIA; i++){
-            for(int j = 0; i<LATO_GRIGLIA; i++){
-                IO.println(" " +  griglia[i][j] + " | " + griglia[i][j] + " | " + griglia[i][j] + " |");
-                if (i<LATO_GRIGLIA-1){
-                    IO.println("-----------|");
-                }
+            for(int j = 0; j<LATO_GRIGLIA; j++){
+                IO.print(griglia[i][j] + " | ");
+            }
+            if(i<2) {
+                IO.println("\n----------|");
+            }else{
+                IO.println();
             }
         }
     }
