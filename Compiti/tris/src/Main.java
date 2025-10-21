@@ -18,7 +18,7 @@ void main() {
             "\n----- PREMI INVIO PER COMINCIARE ----- \n");
 
     IO.readln();
-    int turni = 0;
+    int celle_occupate = 0;
     boolean gayming = true;
     boolean err = true;
     int num = 0;
@@ -28,7 +28,6 @@ void main() {
 
     while (gayming) {
 
-        turni++;
         err = true;
         while (err) {
             err = false;
@@ -56,11 +55,16 @@ void main() {
             }
         }
 
-        //Dopo i controlli inserisco la X e mostro la griglia
+        //Dopo i controlli inserisco la X e mostro la griglia, incremento le celle occupate
         a.mostraGriglia();
+        celle_occupate++;
+        if(celle_occupate>=9){
+            gayming = false;
+            IO.println("Pareggio!");
+        }
 
         //Controllo se qualcuno ha vinto se ho fatto più di 2 turni
-        if(turni>2) {
+        if(celle_occupate>2) {
             vinci = a.check();
             if (vinci == 'X') {
                 IO.println("\nVince la X!");
@@ -100,9 +104,15 @@ void main() {
                 }
             }
 
+            //Mostro la griglia e incremento
             a.mostraGriglia();
+            celle_occupate++;
+            if(celle_occupate>=9){
+                gayming = false;
+                IO.println("Pareggio!");
+            }
 
-            if(turni>2) {
+            if(celle_occupate>2) {
                 vinci = a.check();
                 if (vinci == 'X') {
                     IO.println("\nVince la X!");
@@ -113,9 +123,6 @@ void main() {
                 }
             }
         }
-        if(turni>=9){
-            gayming = false;
-            IO.println("Pareggio!");
-        }
+
     }
 }
