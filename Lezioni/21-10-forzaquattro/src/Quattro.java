@@ -11,6 +11,7 @@ public class Quattro {
     private char colore1 = 'R';
     private char colore2 = 'G';
     private int giocate = 0;
+    private char last_player = ' ';
     private char[][] griglia = new char[RIGHE][COLONNE];
 
 
@@ -50,11 +51,10 @@ public class Quattro {
     }
 
     /**
-     * Aggiunge il colore di giocatore 1 sulla colonna selezionata
-     * @param insert Colonna selezionata dal giocatore 1
+     * Aggiunge il colore di giocatore sulla colonna selezionata
+     * @param insert Colonna selezionata dal giocatore
      */
-    public void aggiungiPlayer1(int insert){
-
+    public void aggiungiPlayer(int insert){
 
         if(insert<1 || insert>COLONNE) throw new IllegalArgumentException("Colonna non accettabile");
 
@@ -63,24 +63,14 @@ public class Quattro {
         int coordinate_riga = trovaRigaLibera(insert);
 
         giocate ++;
-        griglia[coordinate_riga][insert] = colore1;
 
-    }
-
-    /**
-     * Aggiunge il colore di giocatore 2 sulla colonna selezionata
-     * @param insert Colonna selezionata dal giocatore 2
-     */
-    public void aggiungiPlayer2(int insert){
-
-        if(insert<1 || insert>COLONNE) throw new IllegalArgumentException("Colonna non accettabile");
-
-        insert--;
-
-        int coordinate_riga = trovaRigaLibera(insert);
-
-        giocate ++;
-        griglia[coordinate_riga][insert] = colore2;
+        if(last_player != colore1) {
+            griglia[coordinate_riga][insert] = colore1;
+            last_player = colore1;
+        }else{
+            griglia[coordinate_riga][insert] = colore2;
+            last_player = colore2;
+        }
 
     }
 
