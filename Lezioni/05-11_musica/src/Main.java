@@ -91,3 +91,21 @@ public void visualizzaPlaylist(List lista){
     }
 
 }
+
+public void modificaBrano(List lista){
+    String s = "kdk";
+    visualizzaPlaylist(lista);
+    try{
+        s = IO.readln("Quale brano vuoi modificare? ");
+        int scelta = Integer.parseInt(s);
+        if(scelta<1 || scelta > lista.size()) throw new IllegalArgumentException("Fuori dagli indici");
+
+
+
+    }catch(Exception e){
+        IO.println(e.getMessage());
+    }
+
+
+
+}
