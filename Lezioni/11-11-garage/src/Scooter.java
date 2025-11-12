@@ -1,5 +1,6 @@
 import java.time.LocalDate;
-
+import java.util.List;
+import java.util.ArrayList;
 public class Scooter {
 
     private String targa;
@@ -7,6 +8,10 @@ public class Scooter {
     private String modello;
     private LocalDate dataAcquisto;
 
+    static private List<String> targhe = new ArrayList<String>();
+
+
+    //Get e set
     public String getTarga(){
         return targa;
     }
@@ -17,7 +22,8 @@ public class Scooter {
     public void setTarga(String t){
         t = t.toUpperCase();
         if(!t.matches("[A-Z][A-Z0-9]{5}")) throw new IllegalArgumentException("Formato targa inaccettabile");
-        IO.print("fatto");
+        if(targhe.contains(t)) throw new IllegalArgumentException("Targa già utilizzata");
+        targhe.add(t);
         targa = t;
     }
 
@@ -26,7 +32,8 @@ public class Scooter {
     }
 
     public void setKm(int k){
-
+        if(0>k) throw new IllegalArgumentException("Chilometraggio inaccettabile");
+        km = k;
     }
 
     public String getModello(){
@@ -34,7 +41,8 @@ public class Scooter {
     }
 
     public void setModello(String m){
-
+        if(m.length() < 2) throw new IllegalArgumentException("Modello inaccettabile");
+        modello = m;
     }
 
     public LocalDate getDataAcq(){
@@ -42,9 +50,11 @@ public class Scooter {
     }
 
     public void setDataAcq(LocalDate d){
-
+        if(d.isAfter(LocalDate.now())) throw new IllegalArgumentException("Data inaccettabile (futuro)");
+        dataAcquisto = d;
     }
 
+    //Costruttori
     public Scooter(){
         targa = "XXXXXX";
         km = 0;
@@ -52,14 +62,15 @@ public class Scooter {
         dataAcquisto = LocalDate.now();
     }
 
-
     public Scooter(String t, int k, String m, LocalDate d){
-        targa = t;
-        km = k;
-        modello = m;
-        dataAcquisto = d;
+        setTarga(t);
+        setKm(k);
+        setModello(m);
+        setDataAcq(d);
     }
 
-
+    public String toString(){
+        return "SCOOTER :: {Targa: " + targa  +" - Chilometri: " + km + " - Modello: " + modello + " - Data acquisto: " + dataAcquisto + "}";
+    }
 
 }
