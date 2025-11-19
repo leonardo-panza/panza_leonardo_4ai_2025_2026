@@ -1,32 +1,35 @@
 
 
-
 void main() {
 
 
     //Stampo le istruzioni
-    IO.println("\n----- Benvenuto/a al gioco del TRIS -----\n" +
-            "Si giocherà a turni, prima giocatore 1 (X), poi giocatore 2 (O)\n" +
-            "Per inserire il tuo simbolo, utilizza il tastierino numerico come se fosse la tabella di tris\n" +
-            "In questo modo: \n" +
-            "7 | 8 | 9 |\n" +
-            "----------|\n" +
-            "4 | 5 | 6 |\n" +
-            "----------|\n" +
-            "1 | 2 | 3 |\n" +
-            "Dopo aver inserito la casella desiderata, premere INVIO per confermare la scelta\n" +
-            "\n----- PREMI INVIO PER COMINCIARE ----- \n");
+    IO.println("""
+            
+            ----- Benvenuto/a al gioco del TRIS -----
+            Si giocherà a turni, prima giocatore 1 (X), poi giocatore 2 (O)
+            Per inserire il tuo simbolo, utilizza il tastierino numerico come se fosse la tabella di tris
+            In questo modo:
+            7 | 8 | 9 |
+            ----------|
+            4 | 5 | 6 |
+            ----------|
+            1 | 2 | 3 |
+            Dopo aver inserito la casella desiderata, premere INVIO per confermare la scelta
+            
+            ----- PREMI INVIO PER COMINCIARE -----
+            """);
 
     IO.readln();
     int celle_occupate = 0;
-    boolean gayming = true;
-    boolean err = true;
+    boolean running = true;
+    boolean err;
     int num = 0;
     char vinci = ' ';
     Griglia a = new Griglia();
     a.mostraGriglia();
 
-    while (gayming) {
+    while (running ) {
 
         err = true;
         while (err) {
@@ -59,7 +62,7 @@ void main() {
         a.mostraGriglia();
         celle_occupate++;
         if(celle_occupate>=9){
-            gayming = false;
+            running  = false;
             IO.println("Pareggio!");
         }
 
@@ -68,15 +71,15 @@ void main() {
             vinci = a.check();
             if (vinci == 'X') {
                 IO.println("\nVince la X!");
-                gayming = false;
+                running  = false;
             } else if (vinci == 'O') {
                 IO.println("\nVince la O!");
-                gayming = false;
+                running  = false;
             }
         }
 
         //Controllo se X ha vinto durante la sua giocata
-        if(gayming){
+        if(running ){
             err = true;
             while (err) {
                 err = false;
@@ -108,7 +111,7 @@ void main() {
             a.mostraGriglia();
             celle_occupate++;
             if(celle_occupate>=9){
-                gayming = false;
+                running  = false;
                 IO.println("Pareggio!");
             }
 
@@ -116,10 +119,10 @@ void main() {
                 vinci = a.check();
                 if (vinci == 'X') {
                     IO.println("\nVince la X!");
-                    gayming = false;
+                    running  = false;
                 } else if (vinci == 'O') {
                     IO.println("\nVince la O!");
-                    gayming = false;
+                    running  = false;
                 }
             }
         }

@@ -1,12 +1,31 @@
 import java.time.LocalDate;
 
-List<Scooter> archivio = new ArrayList<Scooter>();
+List<Scooter> archivio = new ArrayList<>();
+List<Proprietario> proprietari = new ArrayList<>();
 
 void datiDiProva(){
-    archivio.add(new Scooter("A09876", 0, "Malaguti F12", LocalDate.of(2006, 3, 3)));
-    archivio.add(new Scooter("D12345", 100, "Malaguti F10", LocalDate.of(1997, 1, 1)));
-    archivio.add(new Scooter("ABCDEF", 671, "Ovetto", LocalDate.of(2025, 11, 12)));
-    archivio.add(new Scooter("FWAEH1", 9992, "Piaggio Vespa", LocalDate.of(2017, 8, 1)));
+
+    //Creo proprietari
+    Proprietario p1 = new Proprietario("BNCLCU85A01H501Z", "Luca Bianchi", "Via Roma 12", LocalDate.parse("1997-12-01"));
+    Proprietario p2 = new Proprietario("RSSGLI92C15F205K", "Giulia Rossi", "Via Garibaldi 8", LocalDate.parse("1978-12-21"));
+    Proprietario p3 = new Proprietario("VRDMRC78D22L219Y", "Marco Verdi", "Via Manzoni 25", LocalDate.parse("2002-12-31"));
+    Proprietario p4 = new Proprietario("CNTSRA90E10M082X", "Sara Conti", "Via Dante 5", LocalDate.parse("2007-01-25"));
+
+    proprietari.add(p1);
+    proprietari.add(p2);
+    proprietari.add(p3);
+    proprietari.add(p4);
+
+    archivio.add(new Scooter("A09876", 0, "Malaguti F12", LocalDate.of(2006, 3, 3), p1));
+    archivio.add(new Scooter("D12345", 100, "Malaguti F10", LocalDate.of(1997, 1, 1), p2));
+    archivio.add(new Scooter("ABCDEF", 671, "Ovetto", LocalDate.of(2025, 11, 12), p3));
+    archivio.add(new Scooter("FWAEH1", 9992, "Piaggio Vespa", LocalDate.of(2017, 8, 1), p4));
+}
+
+void visualizzaProprietari(){
+    for(int i = 0; i<proprietari.size(); i++){
+        IO.println((i+1) + ". " + proprietari.get(i));
+    }
 }
 
 //Visualizzo
@@ -17,6 +36,95 @@ void visualizzaTutti(){
     for(Scooter s : this.archivio){
         IO.println(s);
     }
+}
+
+Proprietario aggiungiProprietario(){
+    boolean err = true;
+    String scelta = "";
+    while(err){
+        err = false;
+        IO.println("Si: creerai un nuovo proprietario da 0\nNo: darai lo scooter ad un proprietario che possiede già una moto");
+        scelta = IO.readln("Vuoi creare un nuovo proprietario? (si o no): ");
+        if(!scelta.equals("si") && !scelta.equals("no") && !scelta.equals("sì")){
+            err = true;
+            IO.println("Si o no ho detto!");
+        }
+    }
+
+    if(scelta.equals("si") || scelta.equals("sì")) {
+        Proprietario newp = new Proprietario();
+        err = true;
+        while (err) {
+            err = false;
+            String nome = IO.readln("Inserisci nome e cognome: ");
+            try {
+                newp.setNome(nome);
+            } catch (Exception e) {
+                IO.println(e.getMessage());
+                err = true;
+            }
+        }
+
+        err = true;
+        while (err) {
+            err = false;
+            String nome = IO.readln("Inserisci il codice fiscale: ");
+            try {
+                newp.setCF(nome);
+            } catch (Exception e) {
+                IO.println(e.getMessage());
+                err = true;
+            }
+        }
+
+        err = true;
+        while (err) {
+            err = false;
+            String nome = IO.readln("Inserisci la data di nascita (formato aaaa-mm-gg): ");
+            try {
+
+                newp.setNascita(LocalDate.parse(nome));
+            } catch (Exception e) {
+                IO.println(e.getMessage());
+                err = true;
+            }
+        }
+
+        err = true;
+        while (err) {
+            err = false;
+            String nome = IO.readln("Inserisci la residenza: ");
+            try {
+                newp.setResidenza(nome);
+            } catch (Exception e) {
+                IO.println(e.getMessage());
+                err = true;
+            }
+        }
+        proprietari.add(newp);
+        return newp;
+    }
+
+    int prop = 0;
+    err = true;
+    while(err){
+        err = false;
+        visualizzaProprietari();
+        String s = IO.readln("Numero del proprietario a cui affidare lo scooter: ");
+        try{
+            prop = Integer.parseInt(s);
+            if(prop<1 || prop > proprietari.size()){
+                throw new IllegalArgumentException("Fuori dai campi");
+            }
+        }catch (Exception e){
+            IO.println("Il numero deve essere tra i limiti");
+            err = true;
+        }
+    }
+
+    prop--;
+    return proprietari.get(prop);
+
 }
 
 void aggiungiScooter(){
@@ -51,7 +159,7 @@ void aggiungiScooter(){
         err = false;
         String t = IO.readln("Chilometraggio scooter: ");
         try{
-            int km = 0;
+            int km;
             try {
                 km = Integer.parseInt(t);
             }catch (Exception e){
@@ -74,6 +182,8 @@ void aggiungiScooter(){
             err = true;
         }
     }
+
+    s.setProprietario(aggiungiProprietario());
 
     archivio.add(s);
 }
@@ -98,7 +208,7 @@ void eliminaScooter(){
 }
 
 void ricercaTarga(){
-    List<Scooter> trovati = new ArrayList<Scooter>();
+    List<Scooter> trovati = new ArrayList<>();
 
     boolean err = true;
     String t = ";";
@@ -106,15 +216,15 @@ void ricercaTarga(){
         err = false;
         t = IO.readln("Inserisci la targa: ");
         t = t.toUpperCase();
-        if(t.length()<1 || t.length()>6) {
+        if(t.isEmpty() || t.length()>6) {
             err = true;
             IO.println("Targa inaccattabile");
         }
     }
 
-    for(int i = 0; i<archivio.size(); i++){
-        if(archivio.get(i).getTarga().contains(t)){
-            trovati.add(archivio.get(i));
+    for(Scooter c : archivio){
+        if(c.getTarga().contains(t)){
+            trovati.add(c);
         }
     }
 
@@ -124,7 +234,7 @@ void ricercaTarga(){
 
 void ricercaModello(){
 
-    List<Scooter> trovati = new ArrayList<Scooter>();
+    List<Scooter> trovati = new ArrayList<>();
 
     String mod = " f";
     boolean err = true;
@@ -150,7 +260,7 @@ void ricercaModello(){
 
 void ricercaChilometri(){
 
-    List<Scooter> trovati = new ArrayList<Scooter>();
+    List<Scooter> trovati = new ArrayList<>();
 
     int km_min = 0;
     int km_max = 0;
@@ -187,7 +297,7 @@ void ricercaChilometri(){
 
 void ricercaData(){
 
-    List<Scooter> trovati = new ArrayList<Scooter>();
+    List<Scooter> trovati = new ArrayList<>();
 
     LocalDate data_inizio = null;
     LocalDate data_fine = null;
@@ -312,7 +422,7 @@ void main() {
 
     datiDiProva();
 
-    int s = 0;
+    int s;
     boolean running = true;
 
     while(running) {

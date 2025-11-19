@@ -8,6 +8,7 @@ public class Scooter {
     private int km;
     private String modello;
     private LocalDate dataAcquisto;
+    private Proprietario p;
 
     static private List<String> targhe = new ArrayList<String>();
 
@@ -55,6 +56,14 @@ public class Scooter {
         dataAcquisto = d;
     }
 
+    public Proprietario getProprietario(){
+        return p;
+    }
+
+    public void setProprietario (Proprietario p) {
+        this.p = p;
+    }
+
     //Costruttori
     public Scooter() {
         targa = "XXXXXX";
@@ -63,15 +72,16 @@ public class Scooter {
         dataAcquisto = LocalDate.now();
     }
 
-    public Scooter(String t, int k, String m, LocalDate d) {
+    public Scooter(String t, int k, String m, LocalDate d, Proprietario p) {
         setTarga(t);
         setKm(k);
         setModello(m);
         setDataAcq(d);
+        this.p = p;
     }
 
     public String toString() {
-        return "SCOOTER :: {Targa: " + targa + " - Chilometri: " + km + " - Modello: " + modello + " - Data acquisto: " + dataAcquisto + "}";
+        return "SCOOTER :: {Targa: " + targa + " - Chilometri: " + km + " - Modello: " + modello + " - Data acquisto: " + dataAcquisto + " - Proprietario: " + p + "}";
     }
 
 }
