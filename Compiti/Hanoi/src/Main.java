@@ -3,9 +3,6 @@
 void main() {
 
     List<Integer> dischi = new ArrayList<>();
-    dischi.add(5);
-    dischi.add(4);
-    dischi.add(3);
     dischi.add(2);
     dischi.add(1);
 
@@ -60,7 +57,8 @@ void main() {
 
         boolean vincita = r.vittoria();
         if(vincita){
-            IO.println("Hai vinto! Bravissimo!");
+            IO.println(r.toString());
+            IO.println("Hai vinto! Congratulazioni!");
             running = false;
 //        }else{
 //            IO.println("Prosegui!");
