@@ -24,4 +24,11 @@ public class Bersaglio {
         vivo = false;
     }
 
+    public int getWidth(){
+        return 100;
+    }
+    public int getHeight(){
+        return 200;
+    }
+
 }

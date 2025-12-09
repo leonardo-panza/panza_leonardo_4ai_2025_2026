@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 void main() {
 
     //Imparo a fare schermate con la libreria javax.swing
-
+    final int LARGHEZZA = 800;
+    final int ALTEZZA = 600;
+    
     //Creo la finestra
     JFrame frame = new JFrame("Il mio gioco");
 
@@ -17,7 +18,7 @@ void main() {
 
     frame.setCursor(invisibleCursor);
     frame.add(panel);
-    frame.setSize(800, 600);
+    frame.setSize(LARGHEZZA, ALTEZZA);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
 

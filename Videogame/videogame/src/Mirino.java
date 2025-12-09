@@ -4,6 +4,7 @@ import java.awt.*;
 public class Mirino {
     int x;
     int y;
+
     Image sprite;
 
     PointerInfo a = MouseInfo.getPointerInfo();

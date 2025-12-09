@@ -4,6 +4,7 @@ import java.awt.*;
 class Pannello extends JPanel implements Runnable {
 
     private Mirino mirino;
+    private Background background;
     Bersaglio bersaglio;
 
     public Pannello(){
@@ -11,9 +12,9 @@ class Pannello extends JPanel implements Runnable {
         addMouseListener(new java.awt.event.MouseAdapter() {
            public void mouseClicked(java.awt.event.MouseEvent e){
                if(bersaglio != null && bersaglio.vivo){
-                   int dx = e.getX() - bersaglio.x;
-                   int dy = e.getY() - bersaglio.y;
-                   if(Math.abs(dx) < 50 && Math.abs(dy)<50){
+                   int mx = e.getX();
+                   int my = e.getY();
+                   if(mx>bersaglio.x && mx<bersaglio.x+bersaglio.getWidth() && my>bersaglio.y && my<bersaglio.y+bersaglio.getHeight()){
                        bersaglio.kill();
                        spawnBersaglio();
                        repaint();
@@ -23,11 +24,13 @@ class Pannello extends JPanel implements Runnable {
         });
 
         mirino = new Mirino();
+        background = new Background();
         new Thread(this).start();
     }
 
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        background.paint(g);
         if(bersaglio!=null) bersaglio.draw(g);
         mirino.draw(g);
     }
@@ -43,8 +46,25 @@ class Pannello extends JPanel implements Runnable {
     }
 
     private void spawnBersaglio(){
-        int x = (int)(Math.random() * (getWidth() - 200));
-        int y = (int)(Math.random() * (getWidth() - 100));
+        int x = 0;
+        boolean err = true;
+        while(err){
+            err = false;
+            x = (int)(Math.random() * 800);
+            if(x>800-200){
+                err = true;
+            }
+        }
+
+        int y = 0;
+        err = true;
+        while(err){
+            err = false;
+            y = (int)(Math.random() * (600));
+            if(y>600-200){
+                err = true;
+            }
+        }
         bersaglio = new Bersaglio(x, y);
     }
 }
