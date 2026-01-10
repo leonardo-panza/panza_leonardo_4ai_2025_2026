@@ -12,12 +12,20 @@ public class Pizza {
 
     public void setNome(String nome) {
         nome = nome.toLowerCase();
-        if(!nome.matches("[a-z]{2,20}")) throw new IllegalArgumentException("Nome inaccettabile");
+        if(!nome.matches("[a-z ]{2,20}")) throw new IllegalArgumentException("Nome inaccettabile");
         this.nome = nome;
     }
 
     public void setCosto(double costo) {
         if(costo>30 || costo<0) throw new IllegalArgumentException("Costo inaccettabile");
         this.costo = costo;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }
