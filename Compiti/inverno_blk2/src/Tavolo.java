@@ -26,7 +26,7 @@ public class Tavolo {
         for(Pizza p: ordine){
             o.add(p);
         }
-        return ordine;
+        return o;
     }
 
     public void setStato(StatoTavolo s){
