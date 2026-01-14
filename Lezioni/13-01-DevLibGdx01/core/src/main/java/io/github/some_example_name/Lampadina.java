@@ -1,85 +1,93 @@
-import io.github.some_example_name.StatoLampadina;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
+package io.github.some_example_name;
 
 public class Lampadina {
-    private static ArrayList<String> lampadine = new ArrayList<String>();
+    final private int maxAccensioni = 10;
+    static private int conta = 0;
 
-    private StatoLampadina sl;
-    private String nSerie;
+    private int x, y;
+    private int id;
+    private int accensioni;
+    private StatoLamp stato;
 
-    private int nAccensioni;
-    private double tempoFunzionamento; //secondi
-    private boolean interruttore;
-    private LocalDateTime momento_acc;
-
-    private static int a = 65;
-    private static int b = 65;
-    private static int c = 65;
-    private static int z = 0;
-
-    public Lampadina(){
-        sl = StatoLampadina.SPENTA;
-        nAccensioni = 0;
-        tempoFunzionamento = 0;
-        String parteNumerica = String.format("%05d", z);
-        nSerie = "" + (char) a + (char) b + (char) c + parteNumerica;
-        z++;
-        if(z>=99999){
-            z = 0;
-            c++;
-            if(c>=90){
-                c = 65;
-                b++;
-                if(b>=90){
-                    b = 65;
-                    a++;
-                    if(a>=90){
-                        a = 65;
-                        throw new IllegalArgumentException("ID terminati");
-                    }
-                }
-            }
-        }
-        interruttore = false;
-        lampadine.add(nSerie);
+    public int getX(){
+        return x;
+    }
+    public void setX(int x){
+        this.x = x;
     }
 
-    public void accendi(){
-        if(sl == StatoLampadina.ACCESA) throw new IllegalArgumentException("Lampadina già accesa");
+    public int getY(){
+        return y;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
 
-        //probabilità dello 0.01% che si rompa
-        double random = Math.random();
-        if(random<0.01){
-            sl = StatoLampadina.ROTTA;
-            throw new IllegalArgumentException("La lampadina si è rotta");
-        }else{
-            sl = StatoLampadina.ACCESA;
-            nAccensioni++;
-            momento_acc = LocalDateTime.now();
+    public int getId(){
+        return id;
+    }
+
+    public int getaccensioni(){
+        return accensioni;
+    }
+
+    public StatoLamp getStato(){
+        return stato;
+    }
+
+    @Override
+    public String toString(){
+        return "Lamp:" + id + " pos(" + x + "," + y + ")N°acc:" +
+            accensioni;
+    }
+
+
+    public Lampadina(){
+        x = 0;
+        y = 0;
+        accensioni = 0;
+        stato = StatoLamp.SPENTA;
+
+        id = conta;
+        conta++;
+    }
+
+
+    public void posiziona(int x, int y){
+        setX(x);
+        setY(y);
+    }
+
+    // chiede alla lampadina di provare ad accendersi
+    // se la lampadina è accesa o rotta la richiesta viene ignorata
+    // se supera le accensioni massime la lampadina si rompe
+    public void accendi(){
+        if (stato == StatoLamp.SPENTA) {
+            stato = StatoLamp.ACCESA;
+            accensioni++;
+            if (accensioni > maxAccensioni){
+                stato = StatoLamp.ROTTA;
+            }
         }
     }
 
     public void spegni(){
-        if(sl == StatoLampadina.SPENTA) throw new IllegalArgumentException("Lampadina già spenta");
-        sl = StatoLampadina.SPENTA;
-        Duration durata = Duration.between(momento_acc, LocalDateTime.now());
-        tempoFunzionamento += durata.toSecondsPart();
+        if (stato == StatoLamp.ACCESA)
+            stato = StatoLamp.SPENTA;
     }
 
-    public void premiInterruttore(){
-        interruttore = !interruttore;
-        if(interruttore){
-            accendi();
-        }else{
-            spegni();
+    public void interruttore(){
+        if(stato == StatoLamp.SPENTA) {
+            stato = StatoLamp.ACCESA;
+            accensioni++;
+            if (accensioni > maxAccensioni){
+                stato = StatoLamp.ROTTA;
+            }
+
         }
-    }
 
-    public double getTempoFunzionamento(){
-        return tempoFunzionamento;
+        if(stato == StatoLamp.ACCESA) {
+            stato = StatoLamp.SPENTA;
+        };
     }
 }
