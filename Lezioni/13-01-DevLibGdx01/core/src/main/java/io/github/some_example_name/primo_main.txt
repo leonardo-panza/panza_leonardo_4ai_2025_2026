@@ -69,15 +69,15 @@ public class Main extends ApplicationAdapter {
         }
 
         // Render image
-        ScreenUtils.clear(Color.BLACK); //reset
+        ScreenUtils.clear(Color.BLUE); //reset
         batch.begin(); //avvio
 
-        if(accesa && volteAccese<15){
-            batch.draw(lampAccesa, mouseX, 100);
+        if(accesa && volteAccese<10){
+            batch.draw(lampAccesa, mouseX, 100, 150, 300);
         }else if(!accesa){
-            batch.draw(lampSpenta, mouseX, 100);
+            batch.draw(lampSpenta, mouseX, 100, 150, 300);
         }else{
-            batch.draw(lampRotta, mouseX, 100);
+            batch.draw(lampRotta, mouseX, 100, 150, 300);
             lampAccesa = lampRotta;
             lampSpenta = lampRotta;
         }

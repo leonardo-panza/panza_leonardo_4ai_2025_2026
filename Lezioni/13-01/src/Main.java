@@ -9,5 +9,5 @@ void main() {
     IO.println("Perimetro del triangolo: " + triangolo.perimetro());
 
 
-    Quadrato q = new Quadrato();
+    Quadrato q = new Quadrato(10);
 }
