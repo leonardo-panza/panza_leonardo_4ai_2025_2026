@@ -1,0 +1,12 @@
+Programma per:
+- gestire un gruppo di automobili 
+- caratteristiche definite da noi
+
+Posso:
+- creare un'auto
+- visualizzare le sue info
+- modificare QUALCHE parametro
+- eliminare (?)
+- qualche funzionalità
+  > filtrare auto per criteri (età/km?)
+  >

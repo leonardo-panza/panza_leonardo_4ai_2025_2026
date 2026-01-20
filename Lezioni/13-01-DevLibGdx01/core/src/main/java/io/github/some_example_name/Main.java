@@ -104,7 +104,10 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        if(pPressed) interruttore(archivio);
+        if(pPressed) {
+            System.out.println("I'm in");
+            interruttore(archivio);
+        }
 
         batch.end(); //Fine
     }
@@ -120,7 +123,7 @@ public class Main extends ApplicationAdapter {
         for (Lampadina l : a) {
             switch(l.getStato()){
                 case SPENTA: batch.draw(lampSpenta, l.getX(), l.getY(), 30, 50); break;
-                case ACCESA: batch.draw(lampAccesa, l.getX(), l.getY(), 30, 50); break;
+                case ACCESA: batch.draw(lampAccesa, l.getX(), l.getY(), 30, 50); System.out.println("HEY"); break;
                 case ROTTA: batch.draw(lampRotta, l.getX(), l.getY()); break;
             }
         }

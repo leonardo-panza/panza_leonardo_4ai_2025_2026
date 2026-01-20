@@ -1,0 +1,101 @@
+package io.github.some_example_name;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
+import javax.swing.text.html.HTMLDocument;
+
+
+/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+public class Main extends ApplicationAdapter {
+    private SpriteBatch batch;
+    private Texture image;
+    private int mouseX;
+    private BitmapFont font;
+    private String text;
+    private boolean leftpressed;
+    private boolean accesa = false;
+    private boolean prima = false;
+    private Texture lamp;
+    private TextureRegion lampSpenta, lampAccesa, lampRotta;
+    private int volteAccese;
+
+    @Override
+    //Qui carico file, risorse, immagini ecc.
+    public void create() {
+        batch = new SpriteBatch();
+        image = new Texture("lightbulb.png");
+        FileHandle file = new FileHandle("prova.txt");
+        text = file.readString();
+        font = new BitmapFont();
+        lamp = new Texture("lightbulb.png");
+        lampSpenta = new TextureRegion(lamp, 0, 0, 250,423);
+        lampAccesa = new TextureRegion(lamp, 306, 0, 250, 423);
+        lampRotta = new TextureRegion(lamp, 624, 0,250, 423);
+    }
+
+
+    @Override
+    //Nel render non devo caricare file
+    //Qui si sviluppa tutto il programma
+    //Posso creare lampadine, ma non caricare sul momento la sua foto
+    public void render() {
+
+        //Lo suddivido in due parti: update e render. Update sistemo e aggiorno le variabili,
+        //In render preparo la schermata adattata alle nuove variabili
+        // Update application
+        mouseX = Gdx.input.getX(); // posizione X del mouse
+        leftpressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+        if(!leftpressed) prima = false; //Interruttore
+        if(prima) leftpressed = false;
+        boolean pPressed = Gdx.input.isKeyPressed(Input.Keys.P);
+
+
+
+
+        if(leftpressed && accesa) {
+            accesa = false;
+        }else if(leftpressed && !accesa){
+            accesa = true;
+            volteAccese++;
+        }
+
+        // Render image
+        ScreenUtils.clear(Color.BLUE); //reset
+        batch.begin(); //avvio
+
+        if(accesa && volteAccese<10){
+            batch.draw(lampAccesa, mouseX, 100, 150, 300);
+        }else if(!accesa){
+            batch.draw(lampSpenta, mouseX, 100, 150, 300);
+        }else{
+            batch.draw(lampRotta, mouseX, 100, 150, 300);
+            lampAccesa = lampRotta;
+            lampSpenta = lampRotta;
+        }
+
+        if(pPressed){
+            batch.draw(image, 100, 400, 100, 100);
+        }
+
+        if(leftpressed) {
+            prima = true;
+        }
+
+        batch.end(); //Fine
+    }
+
+    @Override
+    public void dispose() {
+        batch.dispose();
+        image.dispose();
+    }
+}
