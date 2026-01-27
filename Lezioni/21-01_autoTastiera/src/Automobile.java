@@ -16,6 +16,14 @@ public class Automobile {
         setKm(km);
     }
 
+    public Automobile(){
+        targa = "AA000AA";
+        modello = "Standard_CAR";
+        colore = Colore.BIANCO;
+        primaImm = LocalDate.now();
+        km = 0;
+    }
+
     public void setColore(String colore) {
         colore = colore.toLowerCase();
         switch (colore){
@@ -25,6 +33,10 @@ public class Automobile {
             case "giallo": this.colore = Colore.GIALLO; break;
             default: throw new IllegalArgumentException("Colore non accettabile");
         }
+    }
+
+    public void setColore(Colore colore) {
+        this.colore = colore;
     }
 
     public void setKm(float km) {
@@ -59,6 +71,16 @@ public class Automobile {
 
     public float getKm() {
         return km;
+    }
+
+    public String getStringColore(){
+        switch(colore){
+            case Colore.BIANCO: return "bianco";
+            case Colore.GIALLO: return "giallo";
+            case Colore.NERO: return "nero";
+            case Colore.ROSSO: return "rosso";
+        }
+        throw new IllegalArgumentException("Colore impossibile da trovare");
     }
 
     public LocalDate getPrimaImm() {

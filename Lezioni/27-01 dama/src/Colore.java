@@ -1,0 +1,4 @@
+enum Tipo {
+    DAMA,
+    DAMONE
+}
