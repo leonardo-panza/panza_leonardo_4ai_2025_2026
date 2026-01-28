@@ -20,6 +20,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,20 @@ public class Main extends ApplicationAdapter {
     private boolean prima = false;
     private Texture auto;
     private TextureRegion bianca, rossa, nera, gialla;
+    private Texture strada;
+    private Texture bottoni;
+    private TextureRegion nuovo, elimina;
+    boolean spawnRossa = false;
+    boolean spawnGialla = false;
+    boolean spawnNera = false;
+    private float xRossa = 0;
+    private float xNera = 0;
+    private float xGialla = 0;
+    private int mRossa = 0;
+    private int mNera = 0;
+    private int mGialla = 0;
+    private boolean avantiRossa, avantiGialla, avantiNera;
+    float velocita;
 
 
     //Qui carico file, risorse, immagini ecc.
@@ -51,12 +66,17 @@ public class Main extends ApplicationAdapter {
         r = new Random();
         batch = new SpriteBatch();
         font = new BitmapFont();
+        font.getData().setScale(2f);
         image = new Texture("auto.png");
         auto = new Texture("auto.png");
+        strada = new Texture("road.png");
+        bottoni = new Texture("bottoni.png");
         bianca = new TextureRegion(auto, 0, 0, 500,314);
         rossa = new TextureRegion(auto, 0, 910, 500, 275);
         nera = new TextureRegion(auto, 0, 596,500, 314);
         gialla = new TextureRegion(auto, 0, 315,500, 281);
+        nuovo = new TextureRegion(bottoni, 145, 0, 146, 146);
+        elimina = new TextureRegion(bottoni, 290, 0, 146, 146);
 
     }
 
@@ -85,12 +105,40 @@ public class Main extends ApplicationAdapter {
         ScreenUtils.clear(Color.MAGENTA); //reset
         batch.begin(); //avvio
 
-        batch.draw(rossa, 0, 0, 250, 150);
-        batch.draw(gialla, 250, 0, 250, 150);
-        batch.draw(nera, 0, 150, 250, 150);
-        batch.draw(bianca, 250, 150, 250, 150);
+        batch.draw(strada, 0, 400, 800, 200);
+        batch.draw(strada, 0, 200, 800, 200);
+        batch.draw(strada, 0, 0, 800, 200);
+        batch.draw(nuovo, 20, 550, 30, 30);
+        batch.draw(nuovo, 20, 350, 30, 30);
+        batch.draw(nuovo, 20, 150, 30, 30);
+        batch.draw(elimina, 760, 150, 30, 30);
+        batch.draw(elimina, 760, 350, 30, 30);
+        batch.draw(elimina, 760, 550, 30, 30);
 
-        if(leftpressed && mouseY<400 && mouseX<400) leftpressed = false;
+        if(leftpressed && mouseX<50 && mouseX>20 && mouseY<450 && mouseY>420) spawnNera = true;
+        if(leftpressed && mouseX<50 && mouseX>20 && mouseY<250 && mouseY>220) spawnGialla = true;
+        if(leftpressed && mouseX<50 && mouseX>20 && mouseY<50 && mouseY>20) spawnRossa = true;
+
+        if(leftpressed && mouseX<790 && mouseX>760 && mouseY<450 && mouseY>420) {
+            spawnNera = false;
+            xNera = 0;
+        }
+        if(leftpressed && mouseX<790 && mouseX>760 && mouseY<250 && mouseY>220) {
+            spawnGialla = false;
+            xGialla = 0;
+        }
+        if(leftpressed && mouseX<790 && mouseX>760 && mouseY<50 && mouseY>20) {
+            spawnRossa = false;
+            xRossa = 0;
+        }
+
+        if(spawnRossa) disegnaRossa();
+        if(spawnGialla) disegnaGialla();
+        if(spawnNera) disegnaNera();
+
+        font.draw(batch, "Metri percorsi: " + mRossa, 260, 580);
+        font.draw(batch, "Metri percorsi: " + mGialla, 260, 380);
+        font.draw(batch, "Metri percorsi: " + mNera, 260, 180);
 
         batch.end(); //Fine
 
@@ -102,4 +150,40 @@ public class Main extends ApplicationAdapter {
         image.dispose();
     }
 
+    void disegnaRossa(){
+        batch.draw(rossa, xRossa, 420, 150, 75);
+        if(xRossa >= 650){
+            avantiRossa = false;
+        }else if(xRossa <= 0){
+            avantiRossa = true;
+        }
+        if(avantiRossa) xRossa += 3; else xRossa -= 3;
+
+        if(xRossa%33==0) mRossa++;
+    }
+
+    void disegnaGialla(){
+        batch.draw(gialla, xGialla, 220, 150, 75);
+        if(xGialla >= 650){
+            avantiGialla = false;
+        }else if(xGialla <= 0){
+            avantiGialla = true;
+        }
+        if(avantiGialla) xGialla += 3; else xGialla-= 3;
+
+        if(xGialla%33==0) mGialla++;
+    }
+
+    void disegnaNera(){
+        batch.draw(nera, xNera, 20, 150, 75);
+        if(xNera >= 650){
+            avantiNera = false;
+            velocita = (float) (10 * r.nextDouble());
+        }else if(xNera <= 0){
+            avantiNera = true;
+            velocita = (float) (10 * r.nextDouble());
+        }
+        if(avantiNera) xNera += velocita; else xNera -= velocita;
+
+    }
 }

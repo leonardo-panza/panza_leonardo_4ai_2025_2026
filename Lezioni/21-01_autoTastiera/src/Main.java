@@ -56,7 +56,7 @@ void aggiungiAuto(){
     while(err){
         err = false;
         try {
-            a.setColore(IO.readln("Colore dell'auto: "));
+            a.setColore(IO.readln("Colore dell'auto (rosso, nero, bianco, giallo): "));
         }catch(Exception e){
             IO.println(e.getMessage());
             err = true;
@@ -80,7 +80,7 @@ void aggiungiAuto(){
     while(err){
         err = false;
         try {
-            a.setPrimaImm(LocalDate.parse(IO.readln("Data d'immatricolazione dell'auto (aaaa-mm-gg): ")));
+            a.setPrimaImm(IO.readln("Inserisci la data (gg/mm/aaaa): "));
         }catch(Exception e){
             IO.println(e.getMessage());
             err = true;

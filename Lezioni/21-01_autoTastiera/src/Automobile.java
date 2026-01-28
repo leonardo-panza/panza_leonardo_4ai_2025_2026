@@ -55,6 +55,24 @@ public class Automobile {
         this.primaImm = primaImm;
     }
 
+    public void setPrimaImm(String d) {
+        String data = "";
+        LocalDate primaImm;
+
+        if(!d.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) throw new IllegalArgumentException("Formato inaccettabile della data");
+
+        data = "" + d.charAt(6) + d.charAt(7) + d.charAt(8) + d.charAt(9) + "-" + d.charAt(3) + d.charAt(4) + "-" + d.charAt(0)  + d.charAt(1);
+
+        try{
+            primaImm = LocalDate.parse(data);
+        }catch(Exception e){
+            throw new IllegalArgumentException("Data inseistente");
+        }
+
+        if(primaImm.isAfter(LocalDate.now()) || primaImm.isBefore(LocalDate.parse("1886-01-29"))) throw new IllegalArgumentException("Data inaccettabile");
+        this.primaImm = primaImm;
+    }
+
     public void setTarga(String targa) {
         targa = targa.toUpperCase();
         if(!targa.matches("[A-Z]{2}[0-9]{3}[A-Z]{2}")) throw new IllegalArgumentException("targa inaccettabile");
