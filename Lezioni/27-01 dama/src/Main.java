@@ -6,6 +6,8 @@ void main() {
 
     Pedina[][] pedine = s.getScacchiera();
 
+
+
     stampaScacchiera(pedine);
 
 }

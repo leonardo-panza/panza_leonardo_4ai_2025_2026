@@ -159,7 +159,7 @@ public class Main extends ApplicationAdapter {
         }
         if(avantiRossa) xRossa += 3; else xRossa -= 3;
 
-        if(xRossa%33==0) mRossa++;
+        if(xRossa%30==0) mRossa++;
     }
 
     void disegnaGialla(){
@@ -171,19 +171,18 @@ public class Main extends ApplicationAdapter {
         }
         if(avantiGialla) xGialla += 3; else xGialla-= 3;
 
-        if(xGialla%33==0) mGialla++;
+        if(xGialla%30==0) mGialla++;
     }
 
     void disegnaNera(){
         batch.draw(nera, xNera, 20, 150, 75);
         if(xNera >= 650){
             avantiNera = false;
-            velocita = (float) (10 * r.nextDouble());
         }else if(xNera <= 0){
             avantiNera = true;
-            velocita = (float) (10 * r.nextDouble());
         }
-        if(avantiNera) xNera += velocita; else xNera -= velocita;
+        if(avantiNera) xNera += 3; else xNera -= 3;
+        if(xNera%30==0) mNera++;
 
     }
 }
