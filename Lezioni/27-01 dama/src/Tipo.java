@@ -1,4 +1,4 @@
-enum Tipo {
-    DAMA,
-    DAMONE
+enum Colore {
+    BIANCO,
+    NERO
 }

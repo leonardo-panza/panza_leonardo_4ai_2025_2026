@@ -1,0 +1,3 @@
+enum Potere{
+    GHIACCIO, ELETTRICO, FUOCO
+}
