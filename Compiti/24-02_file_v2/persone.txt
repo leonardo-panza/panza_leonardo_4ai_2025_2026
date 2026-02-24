@@ -1,0 +1,15 @@
+Elisa|Mariani|28
+Chiara|Gentile|19|1300.0
+Marco|Bianchi|34
+Pietro|Locatelli|53
+Luca|Galli|47|2900.0
+Aurora|Pagani|23
+Giulia|Rossi|29
+Davide|Fontana|26|1650.0
+Gabriele|Costa|32
+Leonardo|Panza|17
+Elena|Moretti|31|2450.0
+Carlo|Bacuzzi|18
+Sara|Verdi|22|1850.0
+Ciccio|Pasticcio|55
+Alessio|Amato|42
