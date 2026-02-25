@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,10 @@ public class GestorePersoneFile {
         //Creo i buffer writer
         BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(NOME_FILE));
 
-        String personaTesto = "";
+        String personaTesto;
 
         for (Persona p : personeDaSalvare) {
+            personaTesto = "";
             //Distinguo le tre persone
             if(p instanceof Lavoratore) personaTesto += "Lavoratore|" + p.getNome() + "|" + p.getCognome() + "|" + p.getEta() + "|" + ((Lavoratore) p).getStipendioMensile();
             if(p instanceof Bambino) personaTesto += "Bambino|" + p.getNome() + "|" + p.getCognome() + "|" + p.getEta() + "|" + ((Bambino) p).getDataNascita();
@@ -43,9 +45,12 @@ public class GestorePersoneFile {
                 String riga = bufferReader.readLine();
                 String[] parole = riga.split("\\|");
 
-                //Se ha 3 dati è Persona, altrimenti lavoratore
+                //Distinguo le 3 classi
+
                 switch(parole[0]){
-                    
+                    case "Lavoratore": ritorno.add(new Lavoratore(parole[1], parole[2], Integer.parseInt(parole[3]), Float.parseFloat(parole[4]))); break;
+                    case "Bambino": ritorno.add(new Bambino(parole[1], parole[2], Integer.parseInt(parole[3]), LocalDate.parse(parole[4]))); break;
+                    default: ritorno.add(new Persona(parole[1], parole[2], Integer.parseInt(parole[3])));
                 }
 
             }catch(Exception e){

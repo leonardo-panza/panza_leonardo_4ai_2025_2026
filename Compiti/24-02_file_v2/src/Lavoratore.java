@@ -7,12 +7,18 @@ public class Lavoratore extends Persona{
         stipendioMensile = s;
     }
 
+    public void setStipendioMensile(float stipendioMensile) {
+        if(stipendioMensile<=0 || stipendioMensile>100000000) throw new IllegalArgumentException("Stipendio inaccettabile");
+        this.stipendioMensile = stipendioMensile;
+    }
+
     public float getStipendioMensile() {
         return stipendioMensile;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "; Stipendio: €" + stipendioMensile;
+
+        return "Lavoratore: " + super.getNome() + " " + super.getCognome() + ": " + super.getEta() + "; Stipendio: €" + stipendioMensile;
     }
 }

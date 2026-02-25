@@ -14,19 +14,6 @@ void main() {
     persone.add(new Persona("Aurora", "Pagani", 23));
     persone.add(new Bambino("Sofia", "Marchetti", 10, LocalDate.of(2016, 1, 27)));
     persone.add(new Persona("Giulia", "Rossi", 29));
-    persone.add(new Lavoratore("Davide", "Fontana", 26, 1650F));
-    persone.add(new Persona("Gabriele", "Costa", 32));
-    persone.add(new Bambino("Matteo", "Colombo", 1, LocalDate.of(2025, 6, 18)));
-    persone.add(new Persona("Leonardo", "Panza", 17));
-    persone.add(new Lavoratore("Elena", "Moretti", 31, 2450F));
-    persone.add(new Persona("Carlo", "Bacuzzi", 18));
-    persone.add(new Lavoratore("Sara", "Verdi", 22, 1850F));
-    persone.add(new Persona("Ciccio", "Pasticcio", 55));
-    persone.add(new Bambino("Alice", "Ferri", 8, LocalDate.of(2018, 11, 2)));
-    persone.add(new Persona("Alessio", "Amato", 42));
-
-
-
 
     try {
         GestorePersoneFile.salvaPersone(persone);
@@ -44,6 +31,7 @@ void main() {
     }
 
     IO.println("Ecco le persone caricate:");
+
     for(Persona p: persone){
         IO.println(p);
     }
