@@ -26,4 +26,8 @@ public class Rete {
         //Djikstra(start, end, mess);
     }
 
+    public void aggiungiRouter(Router r){
+        router.add(r);
+    }
+
 }
